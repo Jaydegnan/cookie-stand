@@ -1,160 +1,68 @@
 'use strict';
 
-function randomCusto(min, max) {
+
+var hoursOpen = ['Time:', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+var stores = []; // Array for  stores object
+
+function Store(name, minCust, maxCust, avgCookies) { // cunstructor function for object literals
+  this.name = name;
+  this.minCust = minCust;
+  this.maxCust = maxCust;
+  this.avgCookies = avgCookies;
+  this.cookiesSoldPerHour = [];
+  this.dailyTotal = 0;
+  stores.push(this); // pushes new Store to stores array
+  this.getCookiesSoldPerHour(); // executes for-loop. enters in info from fancy for-loop to array and daily totals
+  // ojbects dont 'return' , they are storage centers for information and CAN contain functions, but they are not a function
+}
+Store.prototype.getCookiesSoldPerHour = function() { // this is a method (function attached to an object)
+  for(var i = 0; i < hoursOpen.length - 1; i++) {
+    this.cookiesSoldPerHour.push(Math.floor(randomCusto(this.minCust, this.maxCust) * this.avgCookies)); // this is a lot of stuff
+    // floor rounds out decimals, then we take random # of customers per hour, include min/max, multiply by avg cookies per day
+    this.dailyTotal += this.cookiesSoldPerHour[i]; // combines all cookies sold per our to create daily total
+  }
+  return this.cookiesSoldPerHour; // function sends back information that you asked for
+};
+function randomCusto(min, max) { //
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-var firstAndPike = {
-  minCust: 23,
-  maxCust: 65,
-  avgSale: 6.3,
-  cookiesArray: [],
-  cookiesPerDay: 0,
-  dataList: function() {
-    console.log('First and Pike');
-    var cookiesPerHour = 0;
-    for (var i = 6; i < 20; i++) {
-      cookiesPerHour = Math.floor(randomCusto(this.minCust, this.maxCust) * this.avgSale);
-      var pikeInfo = document.getElementById('firstAndPike'); // parent
-      var pikeListItems = document.createElement('li'); // child
-
-      if (i < 13) {
-        pikeListItems.textContent = (i + ' ' + 'AM:' + ' ' + cookiesPerHour); // THIS LINE PRINTS EVERYTHING
-      } else if (i > 12) {
-        pikeListItems.textContent = (i - 12 + ' ' + 'PM:' + ' ' + cookiesPerHour);
-      }
+new Store('1st and Pike', 23, 65, 6.3);
+new Store('SeaTac', 3, 24, 1.2);
+new Store('Seattle Center', 11, 38, 3.7);
+new Store('Capital Hill', 20, 38, 2.3);
+new Store('Alki', 2, 16, 4.6);
 
 
-      pikeInfo.appendChild(pikeListItems); // add to HTML
-      console.log(cookiesPerHour, this.cookiesPerDay);
-      this.cookiesArray.push(cookiesPerHour);
-      this.cookiesPerDay += cookiesPerHour;
-    }
-    var total = document.createElement('li');
-    total.textContent = this.cookiesPerDay;
-    pikeInfo.appendChild(total);
-    return this.cookiesArray;
+function createTheader() {
+  var tHead = document.getElementById('table-header');
+  console.log(tHead); // find. access thead from html
+  var headerRow = document.createElement('tr'); // create. child of header, parent of table data.
+  console.log(headerRow);
+  tHead.appendChild(headerRow); // attach. create the row, attach to header
+  for(var j = 0; j < hoursOpen.length; j++) { //
+    var tableHours = document.createElement('td'); // create table data, child of header
+    tableHours.textContent = hoursOpen[j]; //  fill table data
+    headerRow.appendChild(tableHours); // combines child and parent
   }
-};
-firstAndPike.dataList();
+}
+createTheader();
 
-
-var seaTacAirport = {
-  minCust: 3,
-  maxCust: 24,
-  avgSale: 1.2,
-  cookiesArray: [],
-  cookiesPerDay: 0,
-  dataList: function() {
-    console.log('Seatac Airport');
-    var cookiesPerHour = 0;
-    for (var i = 6; i < 20; i++) {
-      cookiesPerHour = Math.floor(randomCusto(this.minCust, this.maxCust) * this.avgSale);
-      var seaTacAirportInfo = document.getElementById('seaTacAirport'); // parent
-      var seaTacAirportListItems = document.createElement('li'); // child
-
-      if (i < 13) {
-        seaTacAirportListItems.textContent = (i + ' ' + 'AM:' + ' ' + cookiesPerHour); // THIS LINE PRINTS EVERYTHING
-      } else if (i > 12) {
-        seaTacAirportListItems.textContent = (i - 12 + ' ' + 'PM:' + ' ' + cookiesPerHour);
-      }
-      // seaTacAirportListItems.textContent = cookiesPerHour;
-      console.log(seaTacAirportListItems);
-      seaTacAirportInfo.appendChild(seaTacAirportListItems);
-      console.log(cookiesPerHour);
-      this.cookiesArray.push(cookiesPerHour);
+function createTbody() {
+  var tBody = document.getElementById('tableBody');
+  for(var a = 0; a < stores.length; a++) {
+    var bodyRow = document.createElement('tr'); // child of tBody, parent of tableCookies
+    tBody.appendChild(bodyRow);
+    var tableCookiesOne = document.createElement('td'); // child of bodyRow
+    tableCookiesOne.textContent = stores[a].name;
+    bodyRow.appendChild(tableCookiesOne); // child. attaches to parent
+    for(var y = 0; y < stores[a].cookiesSoldPerHour.length; y++) {
+      var tableCookiesTwo = document.createElement('td');
+      tableCookiesTwo.textContent = stores[a].cookiesSoldPerHour[y];
+      bodyRow.appendChild(tableCookiesTwo);
     }
-    return this.cookiesArray;
+
   }
-};
-seaTacAirport.dataList();
-
-var seattleCenter = {
-  minCust: 11,
-  maxCust: 38,
-  avgSale: 3.7,
-  cookiesArray: [],
-  cookiesPerDay: 0,
-  dataList: function() {
-    console.log('Seattle Center');
-    var cookiesPerHour = 0;
-    for (var i = 6; i < 20; i++) {
-      cookiesPerHour = Math.floor(randomCusto(this.minCust, this.maxCust) * this.avgSale);
-      var seattleCenterInfo = document.getElementById('seattleCenter'); // parent
-      var seattleCenterListItems = document.createElement('li'); // child
-
-      if (i < 13) {
-        seattleCenterListItems.textContent = (i + ' ' + 'AM:' + ' ' + cookiesPerHour); // THIS LINE PRINTS EVERYTHING
-      } else if (i > 12) {
-        seattleCenterListItems.textContent = (i - 12 + ' ' + 'PM:' + ' ' + cookiesPerHour);
-      }
-      // seattleCenterListItems.textContent = cookiesPerHour;
-      seattleCenterInfo.appendChild(seattleCenterListItems);
-      console.log(cookiesPerHour);
-      this.cookiesArray.push(cookiesPerHour);
-    }
-    return this.cookiesArray;
-  }
-};
-seattleCenter.dataList();
-
-var capitalHill = {
-  minCust: 20,
-  maxCust: 38,
-  avgSale: 2.3,
-  cookiesArray: [],
-  cookiesPerDay: 0,
-
-  dataList: function() {
-    console.log('Capital Hill');
-    var cookiesPerHour = 0;
-    for (var i = 6; i < 20; i++) {
-      cookiesPerHour = Math.floor(randomCusto(this.minCust, this.maxCust) * this.avgSale);
-      var capitalHillInfo = document.getElementById('capitalHill'); // parent
-      var capitalHillListItems = document.createElement('li'); // child
-
-      if (i < 13) {
-        capitalHillListItems.textContent = (i + ' ' + 'AM:' + ' ' + cookiesPerHour); // THIS LINE PRINTS EVERYTHING
-      } else if (i > 12) {
-        capitalHillListItems.textContent = (i - 12 + ' ' + 'PM:' + ' ' + cookiesPerHour);
-      }
-      // capitalHillListItems.textContent = cookiesPerHour;
-      capitalHillInfo.appendChild(capitalHillListItems);
-      console.log(cookiesPerHour);
-      this.cookiesArray.push(cookiesPerHour);
-    }
-    return this.cookiesArray;
-  }
-};
-capitalHill.dataList();
-
-var alki = {
-  minCust: 2,
-  maxCust: 16,
-  avgSale: 4.6,
-  cookiesArray: [],
-  cookiesPerDay: 0,
-  dataList: function() {
-    console.log('Alki');
-    var cookiesPerHour = 0;
-    for (var i = 6; i < 20; i++) {
-      cookiesPerHour = Math.floor(randomCusto(this.minCust, this.maxCust) * this.avgSale);
-      var alkiInfo = document.getElementById('alki'); // parent
-      var alkiListItems = document.createElement('li'); // child
-
-      if (i < 13) {
-        alkiListItems.textContent = (i + ' ' + 'AM:' + ' ' + cookiesPerHour); // THIS LINE PRINTS EVERYTHING
-      } else if (i > 12) {
-        alkiListItems.textContent = (i - 12 + ' ' + 'PM:' + ' ' + cookiesPerHour);
-      }
-      //   alkiListItems.textContent = cookiesPerHour;
-      alkiInfo.appendChild(alkiListItems);
-      console.log(cookiesPerHour);
-      this.cookiesArray.push(cookiesPerHour);
-    }
-    return this.cookiesArray;
-  }
-};
-alki.dataList();
+}
+createTbody();
