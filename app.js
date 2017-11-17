@@ -4,7 +4,7 @@
 var hoursOpen = ['Time:', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 var stores = []; // Array for  stores object
 
-function Store(name, minCust, maxCust, avgCookies) { // cunstructor function for object literals
+function Store(name, minCust, maxCust, avgCookies) { // constructor function for object literals
   this.name = name;
   this.minCust = minCust;
   this.maxCust = maxCust;
@@ -36,7 +36,7 @@ new Store('Alki', 2, 16, 4.6);
 
 
 function createTheader() {
-  var tHead = document.getElementById('table-header');
+  var tHead = document.getElementById('tableHeader');
   console.log(tHead); // find. access thead from html
   var headerRow = document.createElement('tr'); // create. child of header, parent of table data.
   console.log(headerRow);
@@ -66,3 +66,45 @@ function createTbody() {
   }
 }
 createTbody();
+
+
+function tableMain() {
+  var tableEl = document.getElementById('main-table');
+  var head = tableHead();
+  var body = tableBody();
+  tableEl.appendChild(head);
+  tableEl.appendChild(body);
+}
+
+function tableHead() {
+  var headEl = document.createElement ('thead');
+  var rowhheadEl.appendChild(rowheadEl);
+  headEl.appendChild(rowheadEl);
+  return headEl;
+}
+
+function tableBody() {
+  var
+
+  new Store(myFormData.name, myFormData.min, myFormData.max, myFormData.avg);
+  function updatetableBody() {
+    var bodyElupdate = document.getElementById('newbody');
+    var bodyRow = tableRow(stores[stores.length = 1].name, stores[stores.length ])
+  }
+}
+
+// var picloop = 0;
+//
+// function carousel() {
+//   var i;
+//   var j = document.getElementByClassName('loop');
+//   for (i = 0; i < j.length; i++) {
+//     j[i].style.display = 'none';
+//   }
+// picloop++
+// if (picloop > j.length) {picloop = 1;}
+// j[picloop - 1].style.display = 'inline-block';
+// setTimeout(carousel, 3000);
+// // 3000 milaseconds = 3 seconds.  \Change image every 3 seconds
+// }
+// carousel();
