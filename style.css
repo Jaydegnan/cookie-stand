@@ -7,6 +7,16 @@ header {
   padding-top: 10px
   height: 85px
 }
+.sectionMain{
+  display: inline-block;
+  width: calc(100% / 3);
+  margin: 5% 0;
+  margin-left: calc((100% / 3) / 3);
+  font-family: 'ariel', sans-serif;
+  color: black;
+  font-size: 20px;
+  text-align: center;
+}
 
 h1 {
     font-family: "cursive";
@@ -20,4 +30,6 @@ h2 {
 
 body {
     background-color: lightblue;
+    max-width: 960px;
+    margin: 0px auto;
 }
