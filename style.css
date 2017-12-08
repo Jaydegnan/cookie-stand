@@ -4,6 +4,9 @@ html {
 a {
     font-family: 'Ubuntu Condensed', sans-serif;
 }
+p, h3, form {
+  font-family: 'Bree Serif', serif;
+}
 
 header {
   background: #F3F3F3
