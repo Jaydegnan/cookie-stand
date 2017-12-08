@@ -4,7 +4,7 @@ html {
 a {
     font-family: 'Ubuntu Condensed', sans-serif;
 }
-p, h3, form {
+p, h3, form, ul {
   font-family: 'Bree Serif', serif;
 }
 
